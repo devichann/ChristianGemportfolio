@@ -102,6 +102,16 @@ The hero component went through 5 key iterations:
 
 ---
 
+## Deployment & Links
+
+**Live Website:** https://next-boiler-nextjs-christiangem-por.vercel.app/
+
+**GitHub Repository:** https://github.com/devichann/next-boiler-nextjs-Christiangem
+
+**Documentation & Proofs:** All screenshots and proofs are included in the ZIP file located inside the `IMAGES/ASSETS` folder.
+
+---
+
 ## Next Steps (Week 2+)
 
 - Add work portfolio section

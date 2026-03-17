@@ -8,7 +8,7 @@ export function Hero() {
       {/* Header */}
       <header className="flex items-center justify-between">
         <div className="text-xs tracking-wider text-foreground">
-          christian raganit
+          christian gem raganit
         </div>
         <nav className="hidden md:flex items-center gap-8">
           <a href="#work" className="text-xs tracking-wider text-muted-foreground hover:text-foreground transition-colors">

@@ -1,6 +1,8 @@
 "use client"
 
+import Image from "next/image"
 import { ArrowUpRight } from "lucide-react"
+import heroImage from "@/Images/assets/heroimage.jpg"
 
 export function Hero() {
   return (
@@ -24,27 +26,39 @@ export function Hero() {
       </header>
 
       {/* Main Hero Content */}
-      <main className="flex-1 flex flex-col justify-center max-w-3xl">
-        <p className="text-xs tracking-wider text-muted-foreground mb-6">
-          developer
-        </p>
-        <h1 className="text-sm md:text-base leading-relaxed text-foreground mb-8 max-w-xl">
-          bsit 2nd yr web dev from saint paul university of philippines
-        </h1>
-        <div className="flex items-center gap-6">
-          <a 
-            href="#work" 
-            className="inline-flex items-center gap-2 text-xs tracking-wider text-foreground border border-foreground px-4 py-2 hover:bg-foreground hover:text-background transition-colors"
-          >
-            view work
-            <ArrowUpRight className="w-3 h-3" />
-          </a>
-          <a 
-            href="#contact" 
-            className="text-xs tracking-wider text-muted-foreground hover:text-foreground transition-colors"
-          >
-            get in touch
-          </a>
+      <main className="flex-1 flex items-center justify-between gap-16">
+        <div className="flex flex-col justify-center max-w-xl">
+          <p className="text-xs tracking-wider text-muted-foreground mb-6">
+            developer
+          </p>
+          <h1 className="text-sm md:text-base leading-relaxed text-foreground mb-8 max-w-xl">
+            bsit 2nd yr web dev from saint paul university of philippines
+          </h1>
+          <div className="flex items-center gap-6">
+            <a
+              href="#work"
+              className="inline-flex items-center gap-2 text-xs tracking-wider text-foreground border border-foreground px-4 py-2 hover:bg-foreground hover:text-background transition-colors"
+            >
+              view work
+              <ArrowUpRight className="w-3 h-3" />
+            </a>
+            <a
+              href="#contact"
+              className="text-xs tracking-wider text-muted-foreground hover:text-foreground transition-colors"
+            >
+              get in touch
+            </a>
+          </div>
+        </div>
+        <div className="hidden md:block flex-shrink-0">
+          <Image
+            src={heroImage}
+            alt="christian gem raganit"
+            width={200}
+            height={260}
+            className="object-cover grayscale"
+            priority
+          />
         </div>
       </main>
 

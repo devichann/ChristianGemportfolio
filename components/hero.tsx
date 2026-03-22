@@ -7,28 +7,13 @@ import spupLogo from "@/Images/assets/spuplogo.png"
 
 export function Hero() {
   return (
-    <section className="min-h-screen flex flex-col justify-between px-8 py-10 md:px-16 lg:px-24">
-
-      {/* Header */}
-      <header className="flex items-center justify-end pb-8 border-b border-border">
-        <nav className="flex items-center gap-10">
-          <a href="#work" className="text-sm tracking-wider text-muted-foreground hover:text-foreground transition-colors">
-            work
-          </a>
-          <a href="#about" className="text-sm tracking-wider text-muted-foreground hover:text-foreground transition-colors">
-            about
-          </a>
-          <a href="#contact" className="text-sm tracking-wider text-muted-foreground hover:text-foreground transition-colors">
-            contact
-          </a>
-        </nav>
-      </header>
+    <section className="min-h-[calc(100vh-4rem)] flex flex-col justify-between px-6 py-10 md:px-16 lg:px-24">
 
       {/* Main Hero Content */}
-      <main className="flex-1 flex items-center justify-center gap-14 py-16">
+      <main className="flex-1 flex flex-col md:flex-row items-center justify-center gap-14 py-16">
 
         {/* Left — Text Content */}
-        <div className="flex flex-col gap-6 w-72">
+        <div className="flex flex-col gap-6 w-full max-w-sm">
           <p className="text-xs tracking-[0.25em] uppercase text-muted-foreground">
             web developer
           </p>
@@ -68,7 +53,7 @@ export function Hero() {
           </div>
         </div>
 
-        {/* Right — Hero Image with name only here */}
+        {/* Right — Hero Image with name */}
         <div className="hidden md:flex flex-col items-start gap-3 flex-shrink-0">
           <Image
             src={heroImage}
@@ -86,13 +71,13 @@ export function Hero() {
       </main>
 
       {/* Footer */}
-      <footer className="flex items-center justify-between pt-8 border-t border-border">
+      <footer className="flex flex-col sm:flex-row items-center justify-between pt-8 border-t border-border gap-4">
         <div className="text-sm tracking-wider text-muted-foreground">
           based in canada
         </div>
         <div className="flex items-center gap-8">
           <a
-            href="https://github.com"
+            href="https://github.com/Christiangem"
             target="_blank"
             rel="noopener noreferrer"
             className="text-sm tracking-wider text-muted-foreground hover:text-foreground transition-colors"
@@ -100,7 +85,7 @@ export function Hero() {
             github
           </a>
           <a
-            href="https://linkedin.com"
+            href="https://linkedin.com/in/christiangem"
             target="_blank"
             rel="noopener noreferrer"
             className="text-sm tracking-wider text-muted-foreground hover:text-foreground transition-colors"
@@ -108,7 +93,7 @@ export function Hero() {
             linkedin
           </a>
           <a
-            href="https://twitter.com"
+            href="https://twitter.com/christiangem"
             target="_blank"
             rel="noopener noreferrer"
             className="text-sm tracking-wider text-muted-foreground hover:text-foreground transition-colors"

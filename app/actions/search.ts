@@ -1,21 +1,6 @@
 "use server";
 
-import pkg from "@prisma/client";
-
-const PrismaClientCtor = (pkg as unknown as {
-  PrismaClient: new (...args: unknown[]) => PrismaClientInstance;
-}).PrismaClient;
-
-type PrismaClientInstance = {
-  person: {
-    findMany: (...args: unknown[]) => Promise<unknown[]>;
-    create: (...args: unknown[]) => Promise<unknown>;
-    update: (...args: unknown[]) => Promise<unknown>;
-    delete: (...args: unknown[]) => Promise<unknown>;
-  };
-};
-
-const prisma = new PrismaClientCtor();
+import { prisma } from "@/lib/prisma";
 
 export interface PersonInput {
   firstName: string;
@@ -132,7 +117,7 @@ export async function searchPeople(searchTerm: string): Promise<PersonRecord[]> 
         ],
       },
       orderBy: [{ firstName: "asc" }, { lastName: "asc" }],
-      take: 50, // Limit results to 50
+      take: 50,
     });
 
     return results as PersonRecord[];

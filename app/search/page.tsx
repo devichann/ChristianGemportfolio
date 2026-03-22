@@ -2,6 +2,7 @@
 
 import { useState, FormEvent, useEffect } from "react";
 import Link from "next/link";
+import { UserButton } from "@clerk/nextjs";
 import {
   createPerson,
   deletePerson,
@@ -212,6 +213,7 @@ export default function SearchPage() {
                 </Link>
               </div>
             </div>
+            <UserButton />
           </div>
         </div>
       </nav>

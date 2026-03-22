@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { UserButton } from "@clerk/nextjs";
 import { Hero } from "@/components/hero"
 
 export default function Home() {
@@ -25,6 +26,7 @@ export default function Home() {
                 </Link>
               </div>
             </div>
+            <UserButton />
           </div>
         </div>
       </nav>

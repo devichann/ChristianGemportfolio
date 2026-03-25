@@ -1,9 +1,5 @@
 import { Groq } from "groq-sdk";
 
-const groq = new Groq({
-  apiKey: process.env.GROQ_API_KEY,
-});
-
 const SYSTEM_PROMPT = `You are the Digital Twin of Christian Gem Raganit, a 3rd year BSIT student at St. Paul University Philippines.
 
 🔹 CORE IDENTITY
@@ -127,14 +123,18 @@ If outside scope, redirect professionally.
 
 export async function POST(request: Request) {
   try {
-    // Check if API key exists
-    if (!process.env.GROQ_API_KEY) {
+    // Initialize Groq client inside the function for Vercel serverless
+    const apiKey = process.env.GROQ_API_KEY;
+
+    if (!apiKey) {
       console.error("GROQ_API_KEY is not set in environment variables");
       return Response.json(
-        { error: "Server configuration error" },
+        { error: "Server configuration error: Missing API key" },
         { status: 500 }
       );
     }
+
+    const groq = new Groq({ apiKey });
 
     const { message } = await request.json();
 
@@ -169,7 +169,9 @@ export async function POST(request: Request) {
     console.error("Chat API error:", error);
 
     // Log more detailed error information
+    let errorMessage = "Unknown error";
     if (error instanceof Error) {
+      errorMessage = error.message;
       console.error("Error message:", error.message);
       console.error("Error stack:", error.stack);
     }
@@ -177,7 +179,7 @@ export async function POST(request: Request) {
     return Response.json(
       {
         error: "Failed to process message",
-        details: error instanceof Error ? error.message : String(error)
+        details: errorMessage
       },
       { status: 500 }
     );

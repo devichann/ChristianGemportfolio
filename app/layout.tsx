@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import { ClerkProvider } from '@clerk/nextjs'
 import { ThemeProvider } from '@/components/theme-provider'
+import { ChatBot } from '@/components/chat-bot'
 import { Toaster } from 'sonner'
 import './globals.css'
 
@@ -47,6 +48,7 @@ export default function RootLayout({
             disableTransitionOnChange
           >
             {children}
+            <ChatBot />
             <Toaster richColors position="top-right" />
           </ThemeProvider>
           <Analytics />

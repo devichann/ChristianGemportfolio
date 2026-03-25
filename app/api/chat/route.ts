@@ -1,5 +1,3 @@
-import { Groq } from "groq-sdk";
-
 const SYSTEM_PROMPT = `You are the Digital Twin of Christian Gem Raganit, a 3rd year BSIT student at St. Paul University Philippines.
 
 🔹 CORE IDENTITY
@@ -123,26 +121,15 @@ If outside scope, redirect professionally.
 
 export async function POST(request: Request) {
   try {
-    // Initialize Groq client inside the function for Vercel serverless
-    const apiKey = process.env.GROQ_API_KEY;
+    const apiKey = process.env.GROQ_API_KEY?.trim();
 
     if (!apiKey) {
-      console.error("GROQ_API_KEY is not set in environment variables");
+      console.error("GROQ_API_KEY is not set");
       return Response.json(
-        { error: "Server configuration error: Missing API key" },
+        { error: "Server configuration error" },
         { status: 500 }
       );
     }
-
-    // Debug logging - log first 10 chars only
-    const keyPreview = apiKey.substring(0, 10) + "...";
-    console.log("API Key preview:", keyPreview);
-    console.log("API Key length:", apiKey.length);
-    console.log("API Key starts with 'gsk_':", apiKey.startsWith("gsk_"));
-
-    // Trim whitespace just in case
-    const trimmedApiKey = apiKey.trim();
-    const groq = new Groq({ apiKey: trimmedApiKey });
 
     const { message } = await request.json();
 
@@ -150,39 +137,51 @@ export async function POST(request: Request) {
       return Response.json({ error: "Message is required" }, { status: 400 });
     }
 
-    console.log("Sending request to Groq API with model: mixtral-8x7b-32768");
+    console.log("API Key preview:", apiKey.substring(0, 10) + "...");
+    console.log("Sending request to Groq API");
 
-    const chatCompletion = await groq.chat.completions.create({
-      messages: [
-        {
-          role: "system",
-          content: SYSTEM_PROMPT,
-        },
-        {
-          role: "user",
-          content: message,
-        },
-      ],
-      model: "mixtral-8x7b-32768",
-      max_tokens: 1024,
-      temperature: 0.7,
+    const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${apiKey}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        model: "mixtral-8x7b-32768",
+        messages: [
+          {
+            role: "system",
+            content: SYSTEM_PROMPT,
+          },
+          {
+            role: "user",
+            content: message,
+          },
+        ],
+        max_tokens: 1024,
+        temperature: 0.7,
+      }),
     });
 
-    const reply =
-      chatCompletion.choices[0]?.message?.content ||
-      "Sorry, I couldn't generate a response.";
+    const data = await response.json();
+
+    if (!response.ok) {
+      console.error("Groq API error:", data);
+      return Response.json(
+        {
+          error: "Failed to get response from AI",
+          details: data.error?.message || "Unknown error"
+        },
+        { status: response.status }
+      );
+    }
+
+    const reply = data.choices?.[0]?.message?.content || "Sorry, I couldn't generate a response.";
 
     return Response.json({ reply });
   } catch (error) {
     console.error("Chat API error:", error);
-
-    // Log more detailed error information
-    let errorMessage = "Unknown error";
-    if (error instanceof Error) {
-      errorMessage = error.message;
-      console.error("Error message:", error.message);
-      console.error("Error stack:", error.stack);
-    }
+    const errorMessage = error instanceof Error ? error.message : String(error);
 
     return Response.json(
       {

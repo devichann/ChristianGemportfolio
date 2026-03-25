@@ -73,9 +73,11 @@ export function ChatBot() {
         }
         setMessages((prev) => [...prev, assistantMessage])
       } else {
+        const errorText = data.details || data.error || "Failed to load response"
+        console.error("Chat error response:", data)
         const errorMessage: Message = {
           id: (Date.now() + 1).toString(),
-          text: "Sorry, something went wrong. Please try again.",
+          text: `Sorry, something went wrong. Please try again. (${errorText})`,
           sender: "assistant",
           timestamp: new Date(),
         }

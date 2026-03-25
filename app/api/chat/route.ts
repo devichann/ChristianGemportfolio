@@ -127,11 +127,22 @@ If outside scope, redirect professionally.
 
 export async function POST(request: Request) {
   try {
+    // Check if API key exists
+    if (!process.env.GROQ_API_KEY) {
+      console.error("GROQ_API_KEY is not set in environment variables");
+      return Response.json(
+        { error: "Server configuration error" },
+        { status: 500 }
+      );
+    }
+
     const { message } = await request.json();
 
     if (!message) {
       return Response.json({ error: "Message is required" }, { status: 400 });
     }
+
+    console.log("Sending request to Groq API with model: mixtral-8x7b-32768");
 
     const chatCompletion = await groq.chat.completions.create({
       messages: [
@@ -156,7 +167,20 @@ export async function POST(request: Request) {
     return Response.json({ reply });
   } catch (error) {
     console.error("Chat API error:", error);
-    return Response.json({ error: "Failed to process message" }, { status: 500 });
+
+    // Log more detailed error information
+    if (error instanceof Error) {
+      console.error("Error message:", error.message);
+      console.error("Error stack:", error.stack);
+    }
+
+    return Response.json(
+      {
+        error: "Failed to process message",
+        details: error instanceof Error ? error.message : String(error)
+      },
+      { status: 500 }
+    );
   }
 }
 

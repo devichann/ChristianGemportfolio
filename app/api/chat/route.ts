@@ -134,7 +134,15 @@ export async function POST(request: Request) {
       );
     }
 
-    const groq = new Groq({ apiKey });
+    // Debug logging - log first 10 chars only
+    const keyPreview = apiKey.substring(0, 10) + "...";
+    console.log("API Key preview:", keyPreview);
+    console.log("API Key length:", apiKey.length);
+    console.log("API Key starts with 'gsk_':", apiKey.startsWith("gsk_"));
+
+    // Trim whitespace just in case
+    const trimmedApiKey = apiKey.trim();
+    const groq = new Groq({ apiKey: trimmedApiKey });
 
     const { message } = await request.json();
 

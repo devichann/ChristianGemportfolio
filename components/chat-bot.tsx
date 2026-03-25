@@ -148,7 +148,7 @@ export function ChatBot() {
                   <path d="M10.5 1.5H3.75A2.25 2.25 0 001.5 3.75v12.5A2.25 2.25 0 003.75 18.5h12.5a2.25 2.25 0 002.25-2.25V9.5" />
                 </svg>
               </div>
-              <h3 className="font-semibold text-black">Portfolio Assistant</h3>
+              <h3 className="font-semibold text-black">Digital Twin</h3>
             </div>
             <button
               onClick={() => setIsOpen(false)}

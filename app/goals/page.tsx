@@ -44,7 +44,7 @@ export default function Goals() {
             Short & Long-Term Goals
           </h2>
           <p className="text-gray-700 text-lg mb-8 leading-relaxed">
-            As a 3rd year BSIT student, my primary focus is to consistently improve all my technical skills while building real-world experience. I aim to transition from academic learning to professional development, becoming a competent full-stack developer with strong security awareness.
+            As a 2nd year BSIT student, my primary focus is to consistently improve all my technical skills while building real-world experience. I aim to transition from academic learning to professional development, becoming a competent full-stack developer with strong security awareness.
           </p>
 
           <div className="space-y-6">

@@ -127,7 +127,7 @@ export function ChatBot() {
       {!isOpen && (
         <button
           onClick={() => setIsOpen(true)}
-          className="fixed bottom-6 right-6 w-20 h-24 bg-gray-900 text-white shadow-lg hover:bg-black transition-colors flex flex-col items-center justify-center gap-1 z-40"
+          className="fixed bottom-20 right-6 w-20 h-24 bg-gray-900 text-white shadow-lg hover:bg-black transition-colors flex flex-col items-center justify-center gap-1 z-40"
           aria-label="Open chat"
         >
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -139,7 +139,7 @@ export function ChatBot() {
 
       {/* Chat Window */}
       {isOpen && (
-        <div className="fixed bottom-6 right-6 w-80 max-h-[500px] bg-white flex flex-col z-50 border border-gray-300 shadow-xl rounded-lg overflow-hidden">
+        <div className="fixed bottom-20 right-6 w-80 max-h-[500px] bg-white flex flex-col z-50 border border-gray-300 shadow-xl rounded-lg overflow-hidden">
           {/* Header */}
           <div className="bg-white px-4 py-3 flex items-center justify-between border-b border-gray-300">
             <div className="flex items-center gap-2">

@@ -136,12 +136,15 @@ export async function POST(request: Request) {
     const chatCompletion = await groq.chat.completions.create({
       messages: [
         {
+          role: "system",
+          content: SYSTEM_PROMPT,
+        },
+        {
           role: "user",
           content: message,
         },
       ],
       model: "mixtral-8x7b-32768",
-      system: SYSTEM_PROMPT,
       max_tokens: 1024,
       temperature: 0.7,
     });

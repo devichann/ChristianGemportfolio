@@ -139,9 +139,9 @@ export function ChatBot() {
 
       {/* Chat Window */}
       {isOpen && (
-        <div className="fixed bottom-20 right-6 w-80 max-h-[500px] bg-white flex flex-col z-50 border border-gray-300 shadow-xl rounded-lg overflow-hidden">
+        <div className="fixed bottom-20 right-6 w-80 bg-white flex flex-col z-50 border border-gray-300 shadow-xl rounded-lg overflow-hidden" style={{ height: "540px" }}>
           {/* Header */}
-          <div className="bg-white px-4 py-3 flex items-center justify-between border-b border-gray-300">
+          <div className="bg-white px-4 py-3 flex items-center justify-between border-b border-gray-300 flex-shrink-0">
             <div className="flex items-center gap-2">
               <div className="w-8 h-8 bg-gray-900 rounded-full flex items-center justify-center">
                 <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
@@ -160,7 +160,7 @@ export function ChatBot() {
           </div>
 
           {/* Messages */}
-          <div className="flex-1 overflow-y-auto p-3 space-y-3 bg-white">
+          <div className="flex-1 overflow-y-auto p-3 space-y-3 bg-white min-h-0">
             {messages.map((message) => (
               <div
                 key={message.id}
@@ -175,7 +175,7 @@ export function ChatBot() {
                 )}
 
                 <div
-                  className={`max-w-xs flex flex-col ${
+                  className={`max-w-[200px] flex flex-col ${
                     message.sender === "user" ? "" : "gap-2"
                   }`}
                 >
@@ -186,7 +186,7 @@ export function ChatBot() {
                         : "bg-gray-100 text-black border border-gray-300"
                     }`}
                   >
-                    <p className="text-xs leading-relaxed">{message.text}</p>
+                    <p className="text-xs leading-relaxed whitespace-pre-wrap break-words">{message.text}</p>
                   </div>
 
                   {message.sender === "assistant" && (
@@ -227,29 +227,30 @@ export function ChatBot() {
               </div>
             )}
 
-            {messages.length > 1 && !isLoading && (
-              <div className="pt-4 border-t border-gray-300 mt-4">
-                <p className="text-xs text-gray-600 font-semibold mb-3">Quick questions:</p>
-                <div className="space-y-2">
-                  {quickQuestions.map((q, idx) => (
-                    <button
-                      key={idx}
-                      onClick={() => handleSendMessage(q)}
-                      className="w-full text-left text-sm px-3 py-2 bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 transition-colors"
-                    >
-                      {q}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            )}
-
             <div ref={messagesEndRef} />
           </div>
 
+          {/* Quick Questions — shown only on initial state, outside scroll area */}
+          {messages.length === 1 && !isLoading && (
+            <div className="px-3 py-2 border-t border-gray-200 bg-gray-50 flex-shrink-0">
+              <p className="text-xs text-gray-500 font-medium mb-1.5">Quick questions:</p>
+              <div className="grid grid-cols-2 gap-1">
+                {quickQuestions.map((q, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => handleSendMessage(q)}
+                    className="text-left text-xs px-2 py-1.5 bg-white border border-gray-200 text-gray-700 hover:bg-gray-100 transition-colors rounded leading-tight"
+                  >
+                    {q}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+
           {/* Input */}
-          <div className="border-t border-gray-300 p-3 bg-white">
-            <div className="flex gap-3 mb-2">
+          <div className="border-t border-gray-300 p-3 bg-white flex-shrink-0">
+            <div className="flex gap-2 mb-2">
               <input
                 type="text"
                 value={input}
@@ -257,15 +258,15 @@ export function ChatBot() {
                 onKeyPress={handleKeyPress}
                 placeholder="Ask about skills, projects, goals..."
                 disabled={isLoading}
-                className="flex-1 px-4 py-2 border border-gray-300 bg-white text-black placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-600 disabled:opacity-50"
+                className="flex-1 px-3 py-2 text-sm border border-gray-300 bg-white text-black placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-600 disabled:opacity-50 rounded"
               />
               <button
                 onClick={() => handleSendMessage()}
                 disabled={isLoading || !input.trim()}
-                className="px-3 py-2 bg-gray-700 hover:bg-gray-800 text-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="px-3 py-2 bg-gray-700 hover:bg-gray-800 text-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed rounded"
                 aria-label="Send message"
               >
-                <Send className="w-5 h-5" />
+                <Send className="w-4 h-4" />
               </button>
             </div>
             <div className="text-xs text-gray-500">
